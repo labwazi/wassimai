@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Deals Mauritius - Book with Wassim</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2980b9;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4e8eb);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .booking-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .chat-area {
+            padding: 20px;
+            height: 500px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            border-radius: 18px;
+            line-height: 1.5;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ai-message {
+            background: white;
+            border: 1px solid #ddd;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: var(--shadow);
+        }
+        
+        .user-message {
+            background: var(--secondary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .input-area {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            background: white;
+        }
+        
+        .input-area input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .input-area button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .input-area button:hover {
+            background: #154360;
+        }
+        
+        .typing-indicator {
+            display: inline-flex;
+            gap: 5px;
+            padding: 10px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 18px;
+            align-self: flex-start;
+            margin-bottom: 15px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: bounce 1.5s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        .booking-cta {
+            background: var(--success);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            display: none;
+        }
+        
+        .cta-button {
+            background: white;
+            color: var(--success);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .offer-highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-container">
+        <div class="header">
+            <h1>Super Deals Mauritius</h1>
+            <p>Exclusive Accommodation Booking with Wassim Emamdin</p>
+        </div>
+        
+        <div class="chat-area" id="chat-area">
+            <div class="message ai-message">
+                Welcome! I'm Wassim Emamdin, Director of Super Deals Mauritius. 
+                <br><br>
+                I specialize in securing <span class="offer-highlight">exclusive, unpublished rates</span> for luxury accommodations across Mauritius.
+                <br><br>
+                To find your perfect stay, please share:
+                <br>1. Preferred location (North, West, etc.)
+                <br>2. Travel dates
+                <br>3. Number of guests
+                <div class="signature">- Wassim Emamdin, Director</div>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Type your requirements here..." autofocus>
+            <button id="send-button">Send</button>
+        </div>
+        
+        <div class="booking-cta" id="booking-cta">
+            <p>Ready to book your exclusive deal?</p>
+            <button class="cta-button" id="cta-button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                </svg>
+                CALL NOW: +230 5825 7539
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - Modify these to sound like you
+        const wassimPersonality = {
+            greeting: "Welcome! I'm Wassim Emamdin, Director of Super Deals Mauritius.",
+            closing: "Looking forward to securing your perfect stay.",
+            signature: "- Wassim Emamdin, Director",
+            phone: "+230 5825 7539",
+            business: "Super Deals Mauritius",
+            dealStyle: "exclusive, unpublished rates",
+            urgency: ["Limited availability", "Prices may change", "Last-minute deal"]
+        };
+
+        // Predefined responses in YOUR professional style
+        const wassimResponses = {
+            greeting: () => `${wassimPersonality.greeting}<br><br>I specialize in securing <span class="offer-highlight">${wassimPersonality.dealStyle}</span> for luxury accommodations across Mauritius.<br><br>To find your perfect stay, please share:<br>1. Preferred location (North, West, etc.)<br>2. Travel dates<br>3. Number of guests<div class="signature">${wassimPersonality.signature}</div>`,
+            
+            location: (location) => `Excellent choice! ${location} has our most <span class="offer-highlight">premium villas</span> right now. I have 3 exceptional properties with private beach access available for your dates.<div class="signature">${wassimPersonality.signature}</div>`,
+            
+            dates: (dates) => `Those dates are perfect - we have <span class="offer-highlight">special clearance rates</span> available! Normally these villas cost ₨25,000/night, but I can offer them at ₨15,000/night if we book today.<div class="signature">${wassimPersonality.signature}</div>`,
+            
+            guests: (guests) => `For ${guests} guests, I recommend our <span class="offer-highlight">luxury beachfront villa</span> with ${guests > 2 ? 'multiple bedrooms' : 'a private pool'}. This is our most popular option - would you like me to reserve it for you?<div class="signature">${wassimPersonality.signature}</div>`,
+            
+            price: () => `Our <span class="offer-highlight">direct owner relationships</span> allow us to offer rates 40% below market. The villa I'm holding for you is normally ₨25,000/night, but your price would be just ₨15,000/night.<br><br>This is a <span class="offer-highlight">time-sensitive offer</span> - shall I proceed with your reservation?<div class="signature">${wassimPersonality.signature}</div>`,
+            
+            urgency: () => `I must advise that we have <span class="offer-highlight">high demand</span> for these dates. To secure this rate, please call me directly at ${wassimPersonality.phone} within the next 2 hours.<br><br>Would you like me to put a 24-hour hold on this villa while you arrange payment?<div class="signature">${wassimPersonality.signature}</div>`,
+            
+            closing: () => `Thank you for considering ${wassimPersonality.business}. For immediate booking assistance, please call me directly at <span class="offer-highlight">${wassimPersonality.phone}</span>.<br><br>${wassimPersonality.closing}<div class="signature">${wassimPersonality.signature}</div>`
+        };
+
+        // Chat logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatArea = document.getElementById('chat-area');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const bookingCta = document.getElementById('booking-cta');
+            const ctaButton = document.getElementById('cta-button');
+            
+            // Track conversation state
+            let conversationState = {
+                hasLocation: false,
+                hasDates: false,
+                hasGuests: false,
+                hasAskedAboutPrice: false
+            };
+            
+            // Initial greeting
+            addMessage(wassimResponses.greeting(), 'ai');
+            
+            // Send message function
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message) {
+                    addMessage(message, 'user');
+                    userInput.value = '';
+                    
+                    // Simulate typing
+                    setTimeout(() => {
+                        const typing = document.createElement('div');
+                        typing.className = 'message ai-message typing-indicator';
+                        typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+                        chatArea.appendChild(typing);
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                        
+                        // Generate response after delay
+                        setTimeout(() => {
+                            chatArea.removeChild(typing);
+                            generateResponse(message);
+                        }, 1500);
+                    }, 500);
+                }
+            }
+            
+            // Add message to chat
+            function addMessage(content, sender) {
+                const message = document.createElement('div');
+                message.className = `message ${sender}-message`;
+                message.innerHTML = content;
+                chatArea.appendChild(message);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+            
+            // Generate appropriate response
+            function generateResponse(userMessage) {
+                const lowerMsg = userMessage.toLowerCase();
+                let response;
+                
+                // Conversation flow
+                if (!conversationState.hasLocation && (lowerMsg.includes('north') || lowerMsg.includes('west') || lowerMsg.includes('south') || lowerMsg.includes('east'))) {
+                    const location = userMessage.match(/(north|west|south|east)/i)[0];
+                    response = wassimResponses.location(location);
+                    conversationState.hasLocation = true;
+                }
+                else if (!conversationState.hasDates && (lowerMsg.includes('date') || lowerMsg.includes('june') || lowerMsg.includes('july') || lowerMsg.includes('august') || lowerMsg.includes('september') || /\d/.test(userMessage))) {
+                    response = wassimResponses.dates(userMessage);
+                    conversationState.hasDates = true;
+                }
+                else if (!conversationState.hasGuests && (lowerMsg.includes('guest') || lowerMsg.includes('people') || lowerMsg.includes('person') || /\d/.test(userMessage))) {
+                    const guests = userMessage.match(/\d+/)?.[0] || '2';
+                    response = wassimResponses.guests(guests);
+                    conversationState.hasGuests = true;
+                }
+                else if (!conversationState.hasAskedAboutPrice && (lowerMsg.includes('price') || lowerMsg.includes('cost') || lowerMsg.includes('rate'))) {
+                    response = wassimResponses.price();
+                    conversationState.hasAskedAboutPrice = true;
+                    bookingCta.style.display = 'block';
+                }
+                else if (lowerMsg.includes('yes') || lowerMsg.includes('book') || lowerMsg.includes('reserve')) {
+                    response = wassimResponses.urgency();
+                    bookingCta.style.display = 'block';
+                }
+                else {
+                    response = wassimResponses.closing();
+                    bookingCta.style.display = 'block';
+                }
+                
+                addMessage(response, 'ai');
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            ctaButton.addEventListener('click', function() {
+                // In a real implementation, this would call the number
+                alert(`In a live version, this would call ${wassimPersonality.phone}`);
+                addMessage(`I just called ${wassimPersonality.phone} to book`, 'user');
+                addMessage(`Excellent! Our team is standing by to complete your reservation. They'll provide payment details and confirm your dates. Thank you for choosing ${wassimPersonality.business}!<div class="signature">${wassimPersonality.signature}</div>`, 'ai');
+            });
+        });
+    </script>
+</body>
+</html>
